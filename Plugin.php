@@ -59,11 +59,11 @@ class HoerMouse_Plugin implements Typecho_Plugin_Interface
         $form->addInput($bubbleText);
 
         // 气泡颜色
-        $bubbleColor = new Typecho_Widget_Helper_Form_Element_Text('bubbleColor', null, _t('red'), _t('请填写气泡颜色'), _t('如果选择文字气泡类型, 请填写气泡颜色'));
+        $bubbleColor = new Typecho_Widget_Helper_Form_Element_Text('bubbleColor', null, _t('随机'), _t('请填写气泡颜色'), _t('如果选择文字气泡类型, 请填写气泡颜色, 可填入"随机"或十六进制颜色值 如#2db4d8'));
         $form->addInput($bubbleColor);
 
         // 气泡速度
-        $bubbleSpeed = new Typecho_Widget_Helper_Form_Element_Text('bubbleSpeed', null, _t('1500'), _t('请填写气泡速度'), _t('如果选择文字气泡类型, 请填写气泡速度'));
+        $bubbleSpeed = new Typecho_Widget_Helper_Form_Element_Text('bubbleSpeed', null, _t('3000'), _t('请填写气泡速度'), _t('如果选择文字气泡类型, 请填写气泡速度 默认3秒'));
         $form->addInput($bubbleSpeed);
 
         $layout = new Typecho_Widget_Helper_Layout();
@@ -121,13 +121,22 @@ jQuery(document).ready(function() {
         index = (index + 1) % strings.length;
         var x = e.pageX,
         y = e.pageY;
+        var color = "{$bubbleColor}";
+        if (color == "随机") {
+            var colorValue="0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f";
+            var colorArray = colorValue.split(",");
+            color="#";
+            for(var i=0;i<6;i++){
+                color+=colorArray[Math.floor(Math.random()*16)];
+            }
+        }
         span.css({
             "z-index": 999,
             "top": y - 20,
             "left": x,
             "position": "absolute",
             "font-weight": "bold",
-            "color": "{$bubbleColor}"
+            "color": color
         });
         $("body").append(span);
         var styles = {
@@ -201,6 +210,7 @@ JS;
 JS;
                 break;
         }
+        $js .= "console.log('%c鼠标相关特效插件%chttps://gitee.com/HoeXhe/HoerMouse Hoe主页www.hoehub.com ','line-height:28px;padding:4px;background:#3f51b5;color:#fff;font-size:14px;','padding:4px; color:#673ab7');";
         $js .= '</script>';
         return $js;
     }

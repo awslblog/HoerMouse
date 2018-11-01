@@ -1,8 +1,10 @@
 ### 打字特效插件`HoerMouse`
 - 文字气泡效果
 
-![演试图片](bubbleText.gif)
+![文字气泡效果](bubbleText.gif)
+- 爱心气泡效果
 
+![爱心气泡效果](bubbleHeart.gif)
 #### 使用方法
 
 - 下载本插件，解压放到`usr/plugins/`目录中
