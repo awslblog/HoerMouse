@@ -1,14 +1,18 @@
 <?php
 
 /**
- * 鼠标相关的特效
+ * 炫彩鼠标
  * @package HoerMouse
  * @author Hoe
- * @version 1.0.0
+ * @version 1.2.0
  * @link http://www.hoehub.com
+ * version 1.0.0 文字气泡
+ * version 1.1.0 新增爱心气泡
+ * version 1.2.0 新增个性鼠标
  */
 class HoerMouse_Plugin implements Typecho_Plugin_Interface
 {
+    const MOUSE_DIR = '/usr/plugins/HoerMouse/static/image';
     /**
      * 激活插件方法,如果激活失败,直接抛出异常
      *
@@ -46,12 +50,12 @@ class HoerMouse_Plugin implements Typecho_Plugin_Interface
         $form->addInput($jquery);
 
         $layout = new Typecho_Widget_Helper_Layout();
-        $layout->html(_t('<h3>气泡类型:</h3>'));
+        $layout->html(_t('<h3>气泡类型:</h3><hr>'));
         $form->addItem($layout);
 
         // 气泡类型
-        $arr = ['text' => _t('文字气泡'), 'heart' => _t('爱心气泡')];
-        $bubbleType = new Typecho_Widget_Helper_Form_Element_Radio('bubbleType', $arr, 'text', _t('选择气泡类型'));
+        $options = ['none' => _t('无'), 'text' => _t('文字气泡'), 'heart' => _t('爱心气泡')];
+        $bubbleType = new Typecho_Widget_Helper_Form_Element_Radio('bubbleType', $options, 'text', _t('选择气泡类型'));
         $form->addInput($bubbleType);
 
         // 气泡文字
@@ -67,8 +71,23 @@ class HoerMouse_Plugin implements Typecho_Plugin_Interface
         $form->addInput($bubbleSpeed);
 
         $layout = new Typecho_Widget_Helper_Layout();
-        $layout->html(_t('<h3>鼠标类型:</h3>'));
+        $layout->html(_t('<h3>鼠标类型:</h3><hr>'));
         $form->addItem($layout);
+
+        $dir = self::MOUSE_DIR;
+        // 鼠标样式
+        $options = [
+            'none' => _t('系统默认'),
+            'dew' => "<img src='{$dir}/dew/normal.cur'><img src='{$dir}/dew/link.cur'>",
+            'carrot' => "<img src='{$dir}/carrot/normal.cur'><img src='{$dir}/carrot/link.cur'>",
+            'exquisite' => "<img src='{$dir}/exquisite/normal.cur'><img src='{$dir}/exquisite/link.cur'>",
+            'marisa' => "<img src='{$dir}/marisa/normal.cur'><img src='{$dir}/marisa/link.cur'>",
+            'shark' => "<img src='{$dir}/shark/normal.cur'><img src='{$dir}/shark/link.cur'>",
+            'sketch' => "<img src='{$dir}/sketch/normal.cur'><img src='{$dir}/sketch/link.cur'>",
+            'star' => "<img src='{$dir}/star/normal.cur'><img src='{$dir}/star/link.cur'>",
+        ];
+        $bubbleType = new Typecho_Widget_Helper_Form_Element_Radio('mouseType', $options, 'dew', _t('选择鼠标样式'));
+        $form->addInput($bubbleType);
     }
 
     /**
@@ -210,7 +229,15 @@ JS;
 JS;
                 break;
         }
-        $js .= "console.log('%c鼠标相关特效插件%chttps://gitee.com/HoeXhe/HoerMouse Hoe主页www.hoehub.com ','line-height:28px;padding:4px;background:#3f51b5;color:#fff;font-size:14px;','padding:4px; color:#673ab7');";
+        $mouseType = $HoerMouse->mouseType;
+        $dir = self::MOUSE_DIR;
+        if ($mouseType != 'none') {
+            $js .= <<<JS
+$("body").css("cursor", "url('{$dir}/{$mouseType}/normal.cur'), default");
+$("a").css("cursor", "url('{$dir}/{$mouseType}/link.cur'), pointer");
+JS;
+        }
+        $js .= "console.log('%c炫彩鼠标插件%chttps://gitee.com/HoeXhe/HoerMouse Hoe主页www.hoehub.com ','line-height:28px;padding:4px;background:#3f51b5;color:#fff;font-size:14px;','padding:4px; color:#673ab7');";
         $js .= '</script>';
         return $js;
     }
