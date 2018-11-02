@@ -1,4 +1,4 @@
-### 打字特效插件`HoerMouse`
+### Typecho博客炫彩鼠标插件`HoerMouse`
 - 文字气泡效果
 
 ![文字气泡效果](bubbleText.gif)
