@@ -4,15 +4,17 @@
  * 炫彩鼠标
  * @package HoerMouse
  * @author Hoe
- * @version 1.2.0
+ * @version 1.3.0
  * @link http://www.hoehub.com
  * version 1.0.0 文字气泡
  * version 1.1.0 新增爱心气泡
  * version 1.2.0 新增个性鼠标
+ * version 1.3.0 新增fireworks+anime喷墨气泡
  */
 class HoerMouse_Plugin implements Typecho_Plugin_Interface
 {
-    const MOUSE_DIR = '/usr/plugins/HoerMouse/static/image';
+    const STATIC_DIR = '/usr/plugins/HoerMouse/static';
+
     /**
      * 激活插件方法,如果激活失败,直接抛出异常
      *
@@ -54,7 +56,12 @@ class HoerMouse_Plugin implements Typecho_Plugin_Interface
         $form->addItem($layout);
 
         // 气泡类型
-        $options = ['none' => _t('无'), 'text' => _t('文字气泡'), 'heart' => _t('爱心气泡')];
+        $options = [
+            'none' => _t('无'),
+            'text' => _t('文字气泡'),
+            'heart' => _t('爱心气泡'),
+            'fireworks' => _t('fireworks+anime喷墨气泡'),
+        ];
         $bubbleType = new Typecho_Widget_Helper_Form_Element_Radio('bubbleType', $options, 'text', _t('选择气泡类型'));
         $form->addInput($bubbleType);
 
@@ -74,7 +81,7 @@ class HoerMouse_Plugin implements Typecho_Plugin_Interface
         $layout->html(_t('<h3>鼠标类型:</h3><hr>'));
         $form->addItem($layout);
 
-        $dir = self::MOUSE_DIR;
+        $dir = self::STATIC_DIR . '/image';
         // 鼠标样式
         $options = [
             'none' => _t('系统默认'),
@@ -113,23 +120,28 @@ class HoerMouse_Plugin implements Typecho_Plugin_Interface
         if ($jquery) {
             echo '<script type="text/javascript" src="//lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>';
         }
-        $js = self::handleBubbleType($HoerMouse);
-        echo $js;
+        $arr = self::handleBubbleType($HoerMouse);
+        echo $arr['html'];
+        echo $arr['js'];
+        echo "<script>console.log('%c炫彩鼠标插件%chttps://gitee.com/HoeXhe/HoerMouse Hoe主页www.hoehub.com ','line-height:28px;padding:4px;background:#3f51b5;color:#fff;font-size:14px;','padding:4px; color:#673ab7');</script>"; // 你能留下我的信息, 我会很高兴的 ^_^
     }
 
     /**
      * @param $HoerMouse
-     * @return string
+     * @return array
      */
     private static function handleBubbleType($HoerMouse)
     {
         $bubbleType = $HoerMouse->bubbleType;
-        $js = '<script>';
+        $dir  = self::STATIC_DIR;
+        $js   = '';
+        $html = '';
         switch ($bubbleType) {
             case 'text':
                 $bubbleColor = $HoerMouse->bubbleColor;
                 $bubbleSpeed = (int)$HoerMouse->bubbleSpeed;
-                $bubbleText = $HoerMouse->bubbleText;
+                $bubbleText  = $HoerMouse->bubbleText;
+                $js .= '<script>';
                 $js .= <<<JS
 var index = 0;
 jQuery(document).ready(function() {
@@ -168,8 +180,10 @@ jQuery(document).ready(function() {
     });
 });
 JS;
+                $js .= '</script>';
                 break;
             case 'heart':
+                $js .= '<script>';
                 $js .= <<<JS
     // 鼠标点击爱心特效
     !function (e, t, a) {
@@ -227,18 +241,24 @@ JS;
             r()
     }(window, document);
 JS;
+                $js .= '</script>';
+                break;
+            case 'fireworks':
+                $html .= '<canvas id="fireworks" style="position:fixed;left:0;top:0;pointer-events:none;"></canvas>';
+                $js   .= '<script type="text/javascript" src="https://cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>';
+                $js   .= "<script type='text/javascript' src='{$dir}/js/fireworks.js'></script>";
                 break;
         }
         $mouseType = $HoerMouse->mouseType;
-        $dir = self::MOUSE_DIR;
+        $imageDir  = self::STATIC_DIR . '/image';
         if ($mouseType != 'none') {
+            $js .= '<script>';
             $js .= <<<JS
-$("body").css("cursor", "url('{$dir}/{$mouseType}/normal.cur'), default");
-$("a").css("cursor", "url('{$dir}/{$mouseType}/link.cur'), pointer");
+$("body").css("cursor", "url('{$imageDir}/{$mouseType}/normal.cur'), default");
+$("a").css("cursor", "url('{$imageDir}/{$mouseType}/link.cur'), pointer");
 JS;
+            $js .= '</script>';
         }
-        $js .= "console.log('%c炫彩鼠标插件%chttps://gitee.com/HoeXhe/HoerMouse Hoe主页www.hoehub.com ','line-height:28px;padding:4px;background:#3f51b5;color:#fff;font-size:14px;','padding:4px; color:#673ab7');";
-        $js .= '</script>';
-        return $js;
+        return compact('js', 'html');
     }
 }
