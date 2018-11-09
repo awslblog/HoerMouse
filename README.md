@@ -1,4 +1,9 @@
 ### Typecho博客炫彩鼠标插件`HoerMouse`
+- fireworks+anime喷墨效果
+
+![fireworks+anime](fireworks+anime.gif)
+
+
 - 文字气泡效果
 
 ![文字气泡效果](bubbleText.gif)
