@@ -19,3 +19,9 @@
 #### 联系作者
 - Email:`i@hoehub.com`
 - 欢迎访问 www.hoehub.com 一起学习讨论
+
+### 许可证 License
+
+- 本项目遵循GPL-3.0开源协议发布。
+- 版权所有Copyright © 2018 by Hoe (http://www.hoehub.com)
+- All rights reserved。
