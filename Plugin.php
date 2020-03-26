@@ -123,7 +123,7 @@ class HoerMouse_Plugin implements Typecho_Plugin_Interface
         $arr = self::handleBubbleType($HoerMouse);
         echo $arr['html'];
         echo $arr['js'];
-        echo "<script>console.log('%c 炫彩鼠标插件 https://gitee.com/HoeXhe/HoerMouse %c www.hoehub.com 😊 DailySentence By Hoe ', 'font-family:\'Microsoft YaHei\',\'SF Pro Display\',Roboto,Noto,Arial,\'PingFang SC\',sans-serif;color:white;background:#ffa099;padding:5px 0;', 'font-family:\'Microsoft YaHei\',\'SF Pro Display\',Roboto,Noto,Arial,\'PingFang SC\',sans-serif;color:#ffa099;background:#404040;padding:5px 0;'); // 你能留下我的信息, 我会很高兴的 ^_^</script>";
+        echo "<script>console.log('%c 炫彩鼠标插件 https://gitee.com/HoeXhe/HoerMouse %c www.hoehub.com 😊 HoerMouse By Hoe ', 'font-family:\'Microsoft YaHei\',\'SF Pro Display\',Roboto,Noto,Arial,\'PingFang SC\',sans-serif;color:white;background:#ffa099;padding:5px 0;', 'font-family:\'Microsoft YaHei\',\'SF Pro Display\',Roboto,Noto,Arial,\'PingFang SC\',sans-serif;color:#ffa099;background:#404040;padding:5px 0;'); // 你能留下我的信息, 我会很高兴的 ^_^</script>";
     }
 
     /**
