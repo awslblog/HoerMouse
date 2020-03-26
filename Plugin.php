@@ -48,7 +48,7 @@ class HoerMouse_Plugin implements Typecho_Plugin_Interface
     {
         $jquery = new Typecho_Widget_Helper_Form_Element_Radio('jquery',
             ['0' => _t('不加载'), '1' => _t('加载')],
-            '1', _t('是否加载外部jQuery库'), _t('插件需要jQuery库文件的支持，如果已加载就不需要加载了 jquery源是新浪Public Resources on SAE：https://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js'));
+            '0', _t('是否加载外部jQuery库'), _t('插件需要jQuery库文件的支持，如果已加载就不需要加载了 jquery源是新浪Public Resources on SAE：https://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js'));
         $form->addInput($jquery);
 
         $layout = new Typecho_Widget_Helper_Layout();
@@ -123,7 +123,7 @@ class HoerMouse_Plugin implements Typecho_Plugin_Interface
         $arr = self::handleBubbleType($HoerMouse);
         echo $arr['html'];
         echo $arr['js'];
-        echo "<script>console.log('%c炫彩鼠标插件%chttps://gitee.com/HoeXhe/HoerMouse Hoe主页www.hoehub.com ','line-height:28px;padding:4px;background:#3f51b5;color:#fff;font-size:14px;','padding:4px; color:#673ab7');</script>"; // 你能留下我的信息, 我会很高兴的 ^_^
+        echo "<script>console.log('%c 炫彩鼠标插件 https://gitee.com/HoeXhe/HoerMouse %c www.hoehub.com 😊 DailySentence By Hoe ', 'font-family:\'Microsoft YaHei\',\'SF Pro Display\',Roboto,Noto,Arial,\'PingFang SC\',sans-serif;color:white;background:#ffa099;padding:5px 0;', 'font-family:\'Microsoft YaHei\',\'SF Pro Display\',Roboto,Noto,Arial,\'PingFang SC\',sans-serif;color:#ffa099;background:#404040;padding:5px 0;'); // 你能留下我的信息, 我会很高兴的 ^_^</script>";
     }
 
     /**
