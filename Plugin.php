@@ -13,7 +13,7 @@
  */
 class HoerMouse_Plugin implements Typecho_Plugin_Interface
 {
-    const STATIC_DIR = '/usr/plugins/HoerMouse/static';
+    const STATIC_DIR = 'https://cdn.jsdelivr.net/gh/awslblog/HoerMouse@1.0.0/static';
 
     /**
      * 激活插件方法,如果激活失败,直接抛出异常
@@ -245,7 +245,7 @@ JS;
                 break;
             case 'fireworks':
                 $html .= '<canvas id="fireworks" style="position:fixed;left:0;top:0;pointer-events:none;"></canvas>';
-                $js   .= '<script type="text/javascript" src="https://cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>';
+                $js   .= '<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/animejs@2.2.0/anime.min.js"></script>';
                 $js   .= "<script type='text/javascript' src='{$dir}/js/fireworks.js'></script>";
                 break;
         }
