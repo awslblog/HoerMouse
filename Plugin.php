@@ -48,7 +48,7 @@ class HoerMouse_Plugin implements Typecho_Plugin_Interface
     {
         $jquery = new Typecho_Widget_Helper_Form_Element_Radio('jquery',
             ['0' => _t('不加载'), '1' => _t('加载')],
-            '0', _t('是否加载外部jQuery库'), _t('插件需要jQuery库文件的支持，如果已加载就不需要加载了 jquery源是新浪Public Resources on SAE：https://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js'));
+            '0', _t('是否加载外部jQuery库'), _t('插件需要jQuery库文件的支持，如果已加载就不需要加载了 jquery源是jsDelivr：https://cdn.jsdelivr.net/npm/jquery@1.9.1/jquery.min.js'));
         $form->addInput($jquery);
 
         $layout = new Typecho_Widget_Helper_Layout();
@@ -118,7 +118,7 @@ class HoerMouse_Plugin implements Typecho_Plugin_Interface
         $HoerMouse = Helper::options()->plugin('HoerMouse');
         $jquery = $HoerMouse->jquery;
         if ($jquery) {
-            echo '<script type="text/javascript" src="//lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>';
+            echo '<script type="text/javascript" src="//cdn.jsdelivr.net/npm/jquery@1.9.1/jquery.min.js"></script>';
         }
         $arr = self::handleBubbleType($HoerMouse);
         echo $arr['html'];
