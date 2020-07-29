@@ -1,4 +1,5 @@
 ### Typecho博客炫彩鼠标插件`HoerMouse`
+转载自https://gitee.com/HoeXhe/HoerMouse
 - fireworks+anime喷墨效果
 
 ![fireworks+anime](fireworks+anime.gif)
